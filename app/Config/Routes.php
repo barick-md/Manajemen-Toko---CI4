@@ -18,6 +18,7 @@ $routes->group('produk',['filter'=>'auth'],function($routes)
     $routes->post('', 'Produk::create');
     $routes->post('edit/(:any)', 'Produk::edit/$1');
     $routes->get('delete/(:any)', 'Produk::delete/$1');
+    $routes->get('download', 'Produk::download');
 });
 //$routes->get('produk', 'Produk::index', ['filter' => 'auth']);
 
