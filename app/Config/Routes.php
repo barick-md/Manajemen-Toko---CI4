@@ -20,8 +20,13 @@ $routes->group('produk',['filter'=>'auth'],function($routes)
     $routes->get('delete/(:any)', 'Produk::delete/$1');
     $routes->get('download', 'Produk::download');
 });
-//$routes->get('produk', 'Produk::index', ['filter' => 'auth']);
 
-$routes->get('keranjang', 'Keranjang::index', ['filter' => 'auth']);
+$routes->group('keranjang', ['filter' => 'auth'], function ($routes) {
+    $routes->get('', 'Keranjang::index');
+    $routes->post('', 'Keranjang::cart_add');
+    $routes->post('edit', 'Keranjang::cart_edit');
+    $routes->get('delete/(:any)', 'Keranjang::cart_delete/$1');
+    $routes->get('clear', 'Keranjang::cart_clear');
+});
 
 $routes->get('profile', 'Profile::index', ['filter' => 'auth']);
