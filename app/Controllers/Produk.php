@@ -12,6 +12,8 @@ class Produk extends BaseController
 
     function __construct()
     {
+        helper('number');
+        helper('form');
         $this->product = new ProductModel();
     }
 
@@ -25,25 +27,39 @@ class Produk extends BaseController
 
     public function create()
     {
-        $dataFoto = $this->request->getFile('foto');
+        if ($this->request->getPost()) {
+            $rules = [
+                'nama' => 'required|min_length[5]',
+                'harga' => 'required|numeric',
+                'jumlah' => 'required|numeric',
+            ];
 
-        $dataForm = [
-            'nama' => $this->request->getPost('nama'),
-            'harga' => $this->request->getPost('harga'),
-            'jumlah' => $this->request->getPost('jumlah'),
-            'created_at' => date("Y-m-d H:i:s")
-        ];
+            if ($this->validate($rules)) {
+                $dataFoto = $this->request->getFile('foto');
 
-        if ($dataFoto->isValid()) {
-            $fileName = $dataFoto->getRandomName();
-            $dataForm['foto'] = $fileName;
-            $dataFoto->move('img/', $fileName);
+                $dataForm = [
+                    'nama' => $this->request->getPost('nama'),
+                    'harga' => $this->request->getPost('harga'),
+                    'jumlah' => $this->request->getPost('jumlah'),
+                    'created_at' => date("Y-m-d H:i:s")
+                ];
+
+                if ($dataFoto->isValid()) {
+                    $fileName = $dataFoto->getRandomName();
+                    $dataForm['foto'] = $fileName;
+                    $dataFoto->move('img/', $fileName);
+                }
+
+                $this->product->insert($dataForm);
+            } 
+            else {
+                session()->setFlashdata('failed', $this->validator->listErrors());
+                return redirect()->back();
+            } 
         }
 
-        $this->product->insert($dataForm);
-
         return redirect('produk')->with('success', 'Data Berhasil Ditambah');
-    } 
+    }
 
     public function edit($id)
     {

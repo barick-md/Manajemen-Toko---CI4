@@ -19,22 +19,30 @@
         <?php
         if (session()->get('role') == 'admin') {
         ?>
-          <li class="nav-item">
-              <a class="nav-link <?php echo (uri_string() == 'produk') ? "" : "collapsed" ?>" href="produk">
-                  <i class="bi bi-receipt"></i>
-                  <span>Produk</span>
-              </a>
-          </li>
+        <li class="nav-item">
+            <a class="nav-link <?php echo (uri_string() == 'produk') ? "" : "collapsed" ?>" href="produk">
+                <i class="bi bi-receipt"></i>
+                <span>Produk</span>
+            </a>
+        </li>
 
-          <li class="nav-item">
-            <a class="nav-link <?php echo (uri_string() == 'profile') ? "" : "collapsed" ?>" href="profile">
-                <i class="bi bi-person"></i>
-                <span>Profile</span>
+        <li class="nav-item">
+            <a class="nav-link <?php echo (uri_string() == 'transaksi') ? "" : "collapsed" ?>" href="transaksi">
+                <i class="bi bi-grid-fill"></i>
+                <span>Transaksi</span>
             </a>
         </li>
         <?php
         }
         ?>
+
+        <li class="nav-item">
+            <a class="nav-link <?php echo (uri_string() == 'profile') ? "" : "collapsed" ?>" href="profile">
+                <i class="bi bi-person"></i>
+                <span>Profile</span>
+            </a>
+        </li><!-- End Profile Nav -->
+        
     </ul>
 
 </aside><!-- End Sidebar-->

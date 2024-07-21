@@ -81,7 +81,7 @@ if (session()->getFlashData('failed')) {
             <tr>
                 <th scope="row"><?php echo $index + 1 ?></th>
                 <td><?php echo $produk['nama'] ?></td>
-                <td><?php echo $produk['harga'] ?></td>
+                <td><?php echo number_to_currency($produk['harga'], 'IDR') ?></td>
                 <td><?php echo $produk['jumlah'] ?></td>
                 <td>
                     <?php if ($produk['foto'] != '' and file_exists("img/" . $produk['foto'] . "")) : ?>
